@@ -16,7 +16,7 @@ void GameObject::setOrigin(const Vec2d& origin) {
 	this->origin = origin;
 }
 
-void GameObject::setOrigin(int32_t x, int32_t y) {
+void GameObject::setOrigin(size_t x, size_t y) {
 	this->origin.x = x;
 	this->origin.y = y;
 }

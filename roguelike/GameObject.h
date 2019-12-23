@@ -10,10 +10,12 @@ public:
 	virtual ~GameObject();
 
 	void setOrigin(const Vec2d& origin);
-	void setOrigin(int32_t x, int32_t y);
+	void setOrigin(size_t x, size_t y);
 
 	Vec2d getOrigin();
 	char getSym();
+
+	virtual GameObject& collide(GameObject&) = 0;
 private:
 	Vec2d origin;
 	char sym;
