@@ -2,6 +2,12 @@
 
 #include "Vec2d.h"
 
+class Knight;
+class Princess;
+class Wall;
+class Dragon;
+class Zombie;
+
 class GameObject {
 public:
 	GameObject();
@@ -15,7 +21,12 @@ public:
 	Vec2d getOrigin();
 	char getSym();
 
-	virtual GameObject& collide(GameObject&) = 0;
+	virtual void collideWith(GameObject& gameObject) {}
+	virtual void collideWith(Knight& knight) {}
+	virtual void collideWith(Princess& princess) {}
+	virtual void collideWith(Wall& wall) {}
+	virtual void collideWith(Dragon& dragon) {}
+	virtual void collideWith(Zombie& zombie) {}
 private:
 	Vec2d origin;
 	char sym;

@@ -32,10 +32,17 @@ bool Zombie::move() {
 		break;
 	}
 
-	if (this->getValidator()(this->getSym(), next_origin)) {
+	auto collision_obj = this->getValidator()(this->getSym(), next_origin);
+	if (collision_obj) {
+		collision_obj->collideWith(*this);
+	} else {
 		this->setOrigin(next_origin);
 		return true;
 	}
 
 	return false;
+}
+
+void Zombie::collideWith(Knight& knight) {
+	this->takeDamage(knight.getDamage());
 }

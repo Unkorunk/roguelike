@@ -2,25 +2,27 @@
 
 Character::Character(char sym) : GameObject(sym) {
 	this->validator = [](char sym, const Vec2d& origin) {
-		return false;
+		return std::shared_ptr<GameObject>();
 	};
 	this->hp = this->max_hp = 100;
 	this->damage = 0;
+	this->deleted = false;
 }
 
 Character::Character(char sym, const Vec2d& origin) : GameObject(sym, origin) {
 	this->validator = [](char sym, const Vec2d& origin) {
-		return false;
+		return std::shared_ptr<GameObject>();
 	};
 	this->hp = this->max_hp = 100;
 	this->damage = 0;
+	this->deleted = false;
 }
 
-void Character::setValidator(const std::function<bool(char sym, const Vec2d & origin)>& validator) {
+void Character::setValidator(const std::function<std::shared_ptr<GameObject>(char sym, const Vec2d & origin)>& validator) {
 	this->validator = validator;
 }
 
-const std::function<bool(char sym, const Vec2d & origin)>& Character::getValidator() {
+const std::function<std::shared_ptr<GameObject>(char sym, const Vec2d & origin)>& Character::getValidator() {
 	return this->validator;
 }
 

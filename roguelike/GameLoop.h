@@ -22,4 +22,5 @@ public:
 	bool tick();
 private:
 	std::vector<std::shared_ptr<GameObject>> game_objs;
+	Map map;
 };

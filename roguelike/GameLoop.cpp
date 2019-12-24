@@ -1,15 +1,19 @@
 #include "GameLoop.h"
 
-GameLoop::GameLoop(const std::string& filename_map) {
-	Map map(filename_map);
-
+GameLoop::GameLoop(const std::string& filename_map) : map(filename_map) {
 	auto simple_vaidator = [&](char sym, const Vec2d& origin) {
 		for (auto go : game_objs) {
+			auto character = std::dynamic_pointer_cast<Character>(go);
+			if (character && character->isDied()) {
+				continue;
+			}
+			
 			if (go->getOrigin().x == origin.x && go->getOrigin().y == origin.y) {
-				return false;
+				return go;
 			}
 		}
-		return (origin.x > 0 && origin.y > 0);
+
+		return std::shared_ptr<GameObject>();
 	};
 
 	map.reg('#', [](size_t x, size_t y) { return std::make_shared<Wall>(Vec2d(x, y)); });
@@ -48,9 +52,23 @@ void GameLoop::init() {
 }
 
 bool GameLoop::tick() {
+	std::shared_ptr<Princess> princess;
+	std::shared_ptr<Knight> knight;
+	for (auto go : game_objs) {
+		if (std::dynamic_pointer_cast<Princess>(go)) {
+			princess = std::dynamic_pointer_cast<Princess>(go);
+		} else if (std::dynamic_pointer_cast<Knight>(go)) {
+			knight = std::dynamic_pointer_cast<Knight>(go);
+		}
+	}
+
+	if (knight->isDied()) {
+		return false;
+	}
+
 	for (auto go : game_objs) {
 		auto character = std::dynamic_pointer_cast<Character>(go);
-		if (character) {
+		if (character && !character->isDied()) {
 			Vec2d old_origin = character->getOrigin();
 			if (character->move()) {
 				move(old_origin.y, old_origin.x);
@@ -61,17 +79,28 @@ bool GameLoop::tick() {
 		}
 	}
 
-	std::shared_ptr<Knight> knight;
-	std::shared_ptr<Princess> princess;
+	move(1, map.getWidth() + 1);
+	printw("Health: %.2f", knight->getHP() * 100.0f / knight->getMaxHP());
+	
+	size_t id = 0;
 	for (auto go : game_objs) {
-		if (std::dynamic_pointer_cast<Knight>(go)) {
-			knight = std::dynamic_pointer_cast<Knight>(go);
-		} else if (std::dynamic_pointer_cast<Princess>(go)) {
-			princess = std::dynamic_pointer_cast<Princess>(go);
+		auto character = std::dynamic_pointer_cast<Character>(go);
+		if (character && !std::dynamic_pointer_cast<Knight>(go)) {
+			move(3 + id++, map.getWidth() + 1);
+			printw("Character #%d: Health: %.2f", id, character->getHP() * 100.0f / character->getMaxHP());
 		}
 	}
 
-	if (Vec2d::distance(knight->getOrigin(), princess->getOrigin()) == 1) {
+	for (auto go : game_objs) {
+		auto character = std::dynamic_pointer_cast<Character>(go);
+		if (character) {
+			if (character->isDied()) {
+				character->remove();
+			}
+		}
+	}
+
+	if (princess->isWin()) {
 		return false;
 	}
 

@@ -29,10 +29,22 @@ bool Knight::move() {
 	
 	while ((ch = getch()) > 0) {} // clear queue
 
-	if (this->getValidator()(this->getSym(), next_origin)) {
+	auto collision_obj = this->getValidator()(this->getSym(), next_origin);
+
+	if (collision_obj) {
+		collision_obj->collideWith(*this);
+	} else {
 		this->setOrigin(next_origin);
 		return true;
 	}
 
 	return false;
+}
+
+void Knight::collideWith(Zombie& zombie) {
+	this->takeDamage(zombie.getDamage());
+}
+
+void Knight::collideWith(Dragon& dragon) {
+	this->takeDamage(dragon.getDamage());
 }
