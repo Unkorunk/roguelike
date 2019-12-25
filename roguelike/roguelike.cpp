@@ -25,8 +25,8 @@ int main(int argc, char* argv[]) {
 
     curs_set(0);
 
-    //GameLoop gameLoop(64, 16);
-    GameLoop gameLoop("test_map.txt");
+    GameLoop gameLoop(64, 20);
+    //GameLoop gameLoop("test_map.txt");
     gameLoop.init();
 
     napms(12);
