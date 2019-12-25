@@ -15,7 +15,7 @@ Zombie::Zombie(const Vec2d& origin) : Character('Z', origin) {
 
 bool Zombie::move() {
 	Vec2d next_origin = this->getOrigin();
-	switch (rand() % 5) {
+	switch (rand() % 100) {
 	case 0:
 		next_origin.x--;
 		break;
@@ -35,6 +35,12 @@ bool Zombie::move() {
 	auto collision_obj = this->getValidator()(this->getSym(), next_origin);
 	if (collision_obj) {
 		collision_obj->collideWith(*this);
+		auto bullet = std::dynamic_pointer_cast<Bullet>(collision_obj);
+		if (bullet) {
+			bullet->remove();
+			this->setOrigin(next_origin);
+			return true;
+		}
 	} else {
 		this->setOrigin(next_origin);
 		return true;
@@ -45,4 +51,14 @@ bool Zombie::move() {
 
 void Zombie::collideWith(Knight& knight) {
 	this->takeDamage(knight.getDamage());
+}
+
+void Zombie::collideWith(Bullet& bullet) {
+	this->takeDamage(bullet.getDamage());
+	bullet.setHP(0);
+}
+
+bool Zombie::shoot(Vec2d& bullet_params) {
+	bullet_params = this->getAim();
+	return (rand() % 15 == 0);
 }

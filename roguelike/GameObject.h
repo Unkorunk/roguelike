@@ -7,6 +7,7 @@ class Princess;
 class Wall;
 class Dragon;
 class Zombie;
+class Bullet;
 
 class GameObject {
 public:
@@ -27,6 +28,7 @@ public:
 	virtual void collideWith(Wall& wall) {}
 	virtual void collideWith(Dragon& dragon) {}
 	virtual void collideWith(Zombie& zombie) {}
+	virtual void collideWith(Bullet& zombie) {}
 private:
 	Vec2d origin;
 	char sym;

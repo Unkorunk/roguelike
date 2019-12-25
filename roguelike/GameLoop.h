@@ -16,11 +16,21 @@
 
 class GameLoop {
 public:
-	GameLoop(const std::string& filename_map);
+	enum class TickState {
+		eContinue,
+		eWin,
+		eLose
+	};
+
+	GameLoop(const std::string& filename);
+	GameLoop(size_t width, size_t height);
 
 	void init();
-	bool tick();
+	TickState tick();
 private:
+	GameLoop();
+
+	std::function<std::shared_ptr<GameObject>(char sym, const Vec2d & origin)> simple_vaidator;
 	std::vector<std::shared_ptr<GameObject>> game_objs;
 	Map map;
 };

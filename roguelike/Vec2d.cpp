@@ -29,6 +29,14 @@ Vec2d& Vec2d::operator-=(const Vec2d& rhs) {
 	return *this;
 }
 
+bool Vec2d::operator==(const Vec2d& rhs) {
+	return (this->x == rhs.x && this->y == rhs.y);
+}
+
+bool Vec2d::operator!=(const Vec2d& rhs) {
+	return !this->operator==(rhs);
+}
+
 size_t Vec2d::length() {
 	return this->x + this->y;
 }

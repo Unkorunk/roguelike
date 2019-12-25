@@ -17,6 +17,9 @@ public:
 	Vec2d operator -(const Vec2d& rhs);
 	Vec2d& operator -=(const Vec2d& rhs);
 
+	bool operator ==(const Vec2d& rhs);
+	bool operator !=(const Vec2d& rhs);
+
 	size_t length();
 	static size_t distance(const Vec2d& lhs, const Vec2d& rhs);
 };

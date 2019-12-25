@@ -16,11 +16,12 @@ public:
 	void setValidator(const std::function<std::shared_ptr<GameObject>(char sym, const Vec2d & origin)>& validator);
 	const std::function<std::shared_ptr<GameObject>(char sym, const Vec2d & origin)>& getValidator();
 
-	uint32_t getHP();
-	uint32_t getMaxHP();
-	uint32_t getDamage();
+	uint32_t getHP() const;
+	uint32_t getMaxHP() const;
+	uint32_t getDamage() const;
+	Vec2d getAim() const;
 
-	bool isDied();
+	bool isDied() const;
 
 	void remove() {
 		if (!deleted) {
@@ -33,16 +34,20 @@ public:
 	void setHP(uint32_t hp);
 	void setMaxHP(uint32_t max_hp);
 	void setDamage(uint32_t damage);
+	void setAim(Vec2d aim);
 
 	void takeDamage(uint32_t damage);
 
 	virtual bool move() = 0;
+	virtual bool shoot(Vec2d& bullet_params) = 0;
 private:
 	std::function<std::shared_ptr<GameObject>(char sym, const Vec2d & origin)> validator;
 
 	uint32_t hp;
 	uint32_t max_hp;
 	uint32_t damage;
+
+	Vec2d aim;
 
 	bool deleted;
 };

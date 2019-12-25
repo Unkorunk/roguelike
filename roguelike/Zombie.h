@@ -3,6 +3,7 @@
 #include "Character.h"
 
 #include "Knight.h"
+#include "Bullet.h"
 
 class Zombie : public Character {
 public:
@@ -12,5 +13,7 @@ public:
 	bool move() override;
 
 	void collideWith(Knight& knight) override;
-};
+	void collideWith(Bullet& bullet) override;
 
+	bool shoot(Vec2d& bullet_params) override;
+};

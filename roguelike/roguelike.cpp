@@ -25,6 +25,7 @@ int main(int argc, char* argv[]) {
 
     curs_set(0);
 
+    //GameLoop gameLoop(64, 16);
     GameLoop gameLoop("test_map.txt");
     gameLoop.init();
 
@@ -32,9 +33,24 @@ int main(int argc, char* argv[]) {
     refresh();
     nodelay(stdscr, TRUE);
 
-    while (gameLoop.tick()) {
-        napms(70);
+    GameLoop::TickState state = gameLoop.tick();
+    while (state == GameLoop::TickState::eContinue) {
+        napms(100);
         refresh();
+
+        state = gameLoop.tick();
+    }
+
+    clear();
+
+    if (state == GameLoop::TickState::eWin) {
+        printw("You win. Press Q to quit.");
+    } else if (state == GameLoop::TickState::eLose) {
+        printw("You lose. Press Q to quit.");
+    }
+
+    while (getch() != 'q') {
+        napms(70);
     }
 
     cleanup();
