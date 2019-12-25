@@ -7,6 +7,8 @@ Character::Character(char sym) : GameObject(sym) {
 	this->hp = this->max_hp = 100;
 	this->damage = 0;
 	this->aim = Vec2d(1, 0);
+
+	this->loadFromSettings(std::string() + sym);
 }
 
 Character::Character(char sym, const Vec2d& origin) : GameObject(sym, origin) {
@@ -16,6 +18,8 @@ Character::Character(char sym, const Vec2d& origin) : GameObject(sym, origin) {
 	this->hp = this->max_hp = 100;
 	this->damage = 0;
 	this->aim = Vec2d(1, 0);
+
+	this->loadFromSettings(std::string() + sym);
 }
 
 void Character::setValidator(const std::function<std::shared_ptr<GameObject>(char sym, const Vec2d & origin)>& validator) {
@@ -78,4 +82,10 @@ void Character::takeDamage(uint32_t damage) {
 	} else {
 		this->hp -= damage;
 	}
+}
+
+void Character::loadFromSettings(const std::string& classname) {
+	this->hp = Settings::getInstance().get_params_or_default<uint32_t>(classname, "hp", this->hp);
+	this->max_hp = Settings::getInstance().get_params_or_default<uint32_t>(classname, "max_hp", this->max_hp);
+	this->damage = Settings::getInstance().get_params_or_default<uint32_t>(classname, "damage", this->damage);
 }

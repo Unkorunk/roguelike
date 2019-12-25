@@ -4,12 +4,17 @@ Zombie::Zombie() : Character('Z') {
 	this->setDamage(3);
 	this->setMaxHP(30);
 	this->setHP(30);
+
+
+	this->loadFromSettings(std::string() + 'Z');
 }
 
 Zombie::Zombie(const Vec2d& origin) : Character('Z', origin) {
 	this->setDamage(3);
 	this->setMaxHP(30);
 	this->setHP(30);
+
+	this->loadFromSettings(std::string() + 'Z');
 }
 
 
@@ -61,4 +66,8 @@ void Zombie::collideWith(Bullet& bullet) {
 bool Zombie::shoot(Vec2d& bullet_params) {
 	bullet_params = this->getAim();
 	return (rand() % 15 == 0);
+}
+
+void Zombie::loadFromSettings(const std::string& classname) {
+	Character::loadFromSettings(classname);
 }

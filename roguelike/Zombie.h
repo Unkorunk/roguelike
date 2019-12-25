@@ -16,4 +16,6 @@ public:
 	void collideWith(Bullet& bullet) override;
 
 	bool shoot(Vec2d& bullet_params) override;
+
+	void loadFromSettings(const std::string& classname) override;
 };

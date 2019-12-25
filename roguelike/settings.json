@@ -1,0 +1,24 @@
+[
+  {
+    "name": "+",
+    "how_many": 1
+  },
+  {
+    "name": "D",
+    "damage": 8,
+    "max_hp": 50,
+    "hp": 50
+  },
+  {
+    "name": "Z",
+    "damage": 3,
+    "max_hp": 30,
+    "hp": 30
+  },
+  {
+    "name": "K",
+    "damage": 10,
+    "max_hp": 1000,
+    "hp": 100
+  }
+]

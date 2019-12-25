@@ -9,9 +9,6 @@ GameObject::GameObject(char sym) : sym(sym), origin(), deleted(false) {
 GameObject::GameObject(char sym, const Vec2d& origin) : sym(sym), origin(origin), deleted(false) {
 }
 
-GameObject::~GameObject() {
-}
-
 void GameObject::setOrigin(const Vec2d& origin) {
 	this->origin = origin;
 }

@@ -13,33 +13,33 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\GameObjs">
+      <UniqueIdentifier>{1969ba05-d2b6-4d08-8223-e2f473a78f6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameObjs">
+      <UniqueIdentifier>{7b5f83ff-9c6e-49b2-9b3a-520a1b9cd973}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GameObjs\Characters">
+      <UniqueIdentifier>{71e5582f-9af6-4ed9-93a3-5f80d1a231b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GameObjs\Characters">
+      <UniqueIdentifier>{0f72d70e-97c4-492a-b721-9ff672f3ad11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Maps">
+      <UniqueIdentifier>{45b61e56-18ce-4209-8bed-4341a16f14e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Settings">
+      <UniqueIdentifier>{58c636cb-4387-4027-b31b-b145c367d338}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Settings">
+      <UniqueIdentifier>{dcf55db6-b3da-495f-a076-df14a27b776e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="roguelike.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Vec2d.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Wall.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Character.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Princess.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Knight.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Zombie.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Dragon.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Map.cpp">
@@ -48,36 +48,36 @@
     <ClCompile Include="GameLoop.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Bullet.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="AidKit.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\GameObjs</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Source Files\GameObjs</Filter>
+    </ClCompile>
+    <ClCompile Include="Princess.cpp">
+      <Filter>Source Files\GameObjs</Filter>
+    </ClCompile>
+    <ClCompile Include="Wall.cpp">
+      <Filter>Source Files\GameObjs</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Source Files\GameObjs\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>Source Files\GameObjs\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Dragon.cpp">
+      <Filter>Source Files\GameObjs\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Knight.cpp">
+      <Filter>Source Files\GameObjs\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="Zombie.cpp">
+      <Filter>Source Files\GameObjs\Characters</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Vec2d.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Wall.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Character.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Princess.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Knight.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Zombie.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Dragon.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Map.h">
@@ -86,14 +86,43 @@
     <ClInclude Include="GameLoop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Bullet.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="AidKit.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\GameObjs</Filter>
+    </ClInclude>
+    <ClInclude Include="Wall.h">
+      <Filter>Header Files\GameObjs</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Header Files\GameObjs</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Header Files\GameObjs\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>Header Files\GameObjs\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Dragon.h">
+      <Filter>Header Files\GameObjs\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Knight.h">
+      <Filter>Header Files\GameObjs\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Zombie.h">
+      <Filter>Header Files\GameObjs\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="Princess.h">
+      <Filter>Header Files\GameObjs</Filter>
+    </ClInclude>
+    <ClInclude Include="Settings.h">
+      <Filter>Header Files\Settings</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="test_map.txt" />
+    <Text Include="test_map.txt">
+      <Filter>Resource Files\Maps</Filter>
+    </Text>
+    <Text Include="settings.json">
+      <Filter>Resource Files\Settings</Filter>
+    </Text>
   </ItemGroup>
 </Project>

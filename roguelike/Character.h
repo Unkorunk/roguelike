@@ -1,6 +1,7 @@
 #pragma once
 
 #include "GameObject.h"
+
 #include <cstdint>
 #include <curses.h>
 #include <functional>
@@ -28,6 +29,8 @@ public:
 	void setAim(Vec2d aim);
 
 	void takeDamage(uint32_t damage);
+
+	void loadFromSettings(const std::string& classname) override;
 
 	virtual bool move() = 0;
 	virtual bool shoot(Vec2d& bullet_params) = 0;

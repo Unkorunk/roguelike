@@ -3,6 +3,7 @@
 #include <curses.h>
 
 #include "Vec2d.h"
+#include "Settings.h"
 
 class Knight;
 class Princess;
@@ -16,7 +17,6 @@ public:
 	GameObject();
 	explicit GameObject(char sym);
 	explicit GameObject(char sym, const Vec2d& origin);
-	virtual ~GameObject();
 
 	void setOrigin(const Vec2d& origin);
 	void setOrigin(size_t x, size_t y);
@@ -35,7 +35,8 @@ public:
 		return deleted;
 	}
 
-	virtual void collideWith(GameObject& gameObject) {}
+	virtual void loadFromSettings(const std::string& classname) {}
+
 	virtual void collideWith(Knight& knight) {}
 	virtual void collideWith(Princess& princess) {}
 	virtual void collideWith(Wall& wall) {}

@@ -4,12 +4,16 @@ Dragon::Dragon() : Character('D') {
 	this->setDamage(8);
 	this->setMaxHP(50);
 	this->setHP(50);
+
+	this->loadFromSettings(std::string() + 'D');
 }
 
 Dragon::Dragon(const Vec2d& origin) : Character('D', origin) {
 	this->setDamage(8);
 	this->setMaxHP(50);
 	this->setHP(50);
+
+	this->loadFromSettings(std::string() + 'D');
 }
 
 bool Dragon::move() {
@@ -60,4 +64,8 @@ void Dragon::collideWith(Bullet& bullet) {
 bool Dragon::shoot(Vec2d& bullet_params) {
 	bullet_params = this->getAim();
 	return (rand() % 15 == 0);
+}
+
+void Dragon::loadFromSettings(const std::string& classname) {
+	Character::loadFromSettings(classname);
 }

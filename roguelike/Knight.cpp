@@ -5,6 +5,8 @@ Knight::Knight() : Character('K') {
 	this->setMaxHP(100);
 	this->setHP(100);
 	this->is_shoot = false;
+
+	this->loadFromSettings(std::string() + 'K');
 }
 
 Knight::Knight(const Vec2d& origin) : Character('K', origin) {
@@ -12,6 +14,8 @@ Knight::Knight(const Vec2d& origin) : Character('K', origin) {
 	this->setMaxHP(100);
 	this->setHP(100);
 	this->is_shoot = false;
+
+	this->loadFromSettings(std::string() + 'K');
 }
 
 bool Knight::move() {
@@ -71,4 +75,8 @@ void Knight::collideWith(Bullet& bullet) {
 bool Knight::shoot(Vec2d& bullet_params) {
 	bullet_params = this->getAim();
 	return is_shoot;
+}
+
+void Knight::loadFromSettings(const std::string& classname) {
+	Character::loadFromSettings(classname);
 }
