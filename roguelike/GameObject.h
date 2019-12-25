@@ -1,5 +1,7 @@
 #pragma once
 
+#include <curses.h>
+
 #include "Vec2d.h"
 
 class Knight;
@@ -22,6 +24,17 @@ public:
 	Vec2d getOrigin();
 	char getSym();
 
+	void remove() {
+		if (!deleted) {
+			::move(this->getOrigin().y, this->getOrigin().x);
+			::addch(' ');
+			deleted = true;
+		}
+	}
+	bool getRemoved() const {
+		return deleted;
+	}
+
 	virtual void collideWith(GameObject& gameObject) {}
 	virtual void collideWith(Knight& knight) {}
 	virtual void collideWith(Princess& princess) {}
@@ -32,4 +45,6 @@ public:
 private:
 	Vec2d origin;
 	char sym;
+
+	bool deleted;
 };

@@ -3,6 +3,10 @@
 GameLoop::GameLoop() {
 	simple_vaidator = [&](char sym, const Vec2d& origin) {
 		for (auto go : game_objs) {
+			if (go->getRemoved()) {
+				continue;
+			}
+
 			auto character = std::dynamic_pointer_cast<Character>(go);
 			if (character && character->isDied()) {
 				continue;
@@ -18,6 +22,7 @@ GameLoop::GameLoop() {
 
 	map.reg('#', [](size_t x, size_t y) { return std::make_shared<Wall>(Vec2d(x, y)); });
 	map.reg('P', [](size_t x, size_t y) { return std::make_shared<Princess>(Vec2d(x, y)); });
+	map.reg('+', [](size_t x, size_t y) { return std::make_shared<AidKit>(Vec2d(x, y)); });
 
 	map.reg('K', [&](size_t x, size_t y) { 
 		auto knight = std::make_shared<Knight>(Vec2d(x, y));

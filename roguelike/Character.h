@@ -1,6 +1,5 @@
 #pragma once
 
-#include <curses.h>
 #include "GameObject.h"
 #include <cstdint>
 #include <curses.h>
@@ -23,14 +22,6 @@ public:
 
 	bool isDied() const;
 
-	void remove() {
-		if (!deleted) {
-			::move(this->getOrigin().y, this->getOrigin().x);
-			::addch(' ');
-			deleted = true;
-		}
-	}
-
 	void setHP(uint32_t hp);
 	void setMaxHP(uint32_t max_hp);
 	void setDamage(uint32_t damage);
@@ -48,6 +39,4 @@ private:
 	uint32_t damage;
 
 	Vec2d aim;
-
-	bool deleted;
 };

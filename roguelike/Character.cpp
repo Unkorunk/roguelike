@@ -6,7 +6,6 @@ Character::Character(char sym) : GameObject(sym) {
 	};
 	this->hp = this->max_hp = 100;
 	this->damage = 0;
-	this->deleted = false;
 	this->aim = Vec2d(1, 0);
 }
 
@@ -16,7 +15,6 @@ Character::Character(char sym, const Vec2d& origin) : GameObject(sym, origin) {
 	};
 	this->hp = this->max_hp = 100;
 	this->damage = 0;
-	this->deleted = false;
 	this->aim = Vec2d(1, 0);
 }
 

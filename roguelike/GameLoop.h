@@ -13,6 +13,7 @@
 #include "Knight.h"
 #include "Princess.h"
 #include "Wall.h"
+#include "AidKit.h"
 
 class GameLoop {
 public:
