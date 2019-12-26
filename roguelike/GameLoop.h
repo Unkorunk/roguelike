@@ -3,7 +3,7 @@
 #include <vector>
 #include <memory>
 #include <string>
-
+#include <queue>
 #include <curses.h>
 
 #include "Map.h"

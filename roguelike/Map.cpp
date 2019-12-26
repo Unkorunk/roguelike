@@ -137,7 +137,7 @@ Map::Map(size_t width, size_t height) : width(width), height(height) {
 
 	Leaf::printPaths(tree, data);
 
-	size_t cnt_mobs = 1 + rand() % 10;
+	size_t cnt_mobs = 1 + rand() % 20;
 	for (size_t i = 0; i < cnt_mobs; i++) {
 		size_t mob_room = rand() % rooms.size();
 		size_t x = rooms[mob_room].x + rand() % rooms[mob_room].width;
@@ -149,7 +149,17 @@ Map::Map(size_t width, size_t height) : width(width), height(height) {
 			y = rooms[mob_room].y + rand() % rooms[mob_room].height;
 		}
 
-		data[y][x] = (rand() % 2 == 0 ? 'Z' : 'D');
+		switch (rand() % 3) {
+		case 0:
+			data[y][x] = 'Z';
+			break;
+		case 1:
+			data[y][x] = 'D';
+			break;
+		default:
+			data[y][x] = '+';
+			break;
+		}
 	}
 
 	size_t knight_room = rand() % rooms.size();

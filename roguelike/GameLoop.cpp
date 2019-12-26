@@ -76,6 +76,18 @@ GameLoop::TickState GameLoop::tick() {
 	}
 	// ~Remove object is died
 
+	if (is_termresized()) {
+		resize_term(0, 0);
+	}
+
+	//clear();
+	//for (auto go : game_objs) {
+	//	if (!go->getRemoved()) {
+	//		move(go->getOrigin().y, go->getOrigin().x);
+	//		addch(go->getSym());
+	//	}
+	//}
+
 	// Get knight and princess
 	std::shared_ptr<Princess> princess;
 	std::shared_ptr<Knight> knight;
@@ -98,10 +110,10 @@ GameLoop::TickState GameLoop::tick() {
 		if (bullet && !bullet->isDied()) {
 			Vec2d old_origin = bullet->getOrigin();
 			if (bullet->move()) {
-				move(old_origin.y, old_origin.x);
+		/*		move(old_origin.y, old_origin.x);
 				addch(' ');
 				move(bullet->getOrigin().y, bullet->getOrigin().x);
-				addch(bullet->getSym());
+				addch(bullet->getSym());*/
 			}
 		}
 	}
@@ -126,10 +138,10 @@ GameLoop::TickState GameLoop::tick() {
 		if (character && !std::dynamic_pointer_cast<Bullet>(character) && !character->isDied()) {
 			Vec2d old_origin = character->getOrigin();
 			if (character->move()) {
-				move(old_origin.y, old_origin.x);
-				addch(' ');
-				move(character->getOrigin().y, character->getOrigin().x);
-				addch(character->getSym());
+				//move(old_origin.y, old_origin.x);
+				//addch(' ');
+				//move(character->getOrigin().y, character->getOrigin().x);
+				//addch(character->getSym());
 
 				character->setAim(character->getOrigin() - old_origin);
 			}
@@ -154,8 +166,8 @@ GameLoop::TickState GameLoop::tick() {
 				character->collideWith(*bullet.get());
 			}
 		} else {
-			move(bullet->getOrigin().y, bullet->getOrigin().x);
-			addch('*');
+			//move(bullet->getOrigin().y, bullet->getOrigin().x);
+			//addch('*');
 			game_objs.push_back(bullet);
 		}
 	}
@@ -171,11 +183,30 @@ GameLoop::TickState GameLoop::tick() {
 		}
 	}
 	// ~make died objs invisible
+	
+	// fog
+	clear();
+	const size_t fog_distance = 6;
+	for (auto go : game_objs) {
+		if (Vec2d::distance(go->getOrigin(), knight->getOrigin()) < fog_distance) {
+			auto character = std::dynamic_pointer_cast<Character>(go);
+			if (character && character->isDied()) {
+				continue;
+			}
+
+			if (!go->getRemoved()) {
+				move(go->getOrigin().y, go->getOrigin().x);
+				addch(go->getSym());
+			}
+		}
+	}
+	// ~fog
 
 	// info
+#if _DEBUG
 	move(1, map.getWidth() + 1);
 	printw("Health: %d / %d", knight->getHP(), knight->getMaxHP());
-#if _DEBUG
+
 	move(2, map.getWidth() + 1);
 	printw("GameObjs: %3d", game_objs.size());
 
