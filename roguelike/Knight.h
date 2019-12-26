@@ -16,7 +16,7 @@ public:
 	void collideWith(Dragon& dragon) override;
 	void collideWith(Bullet& bullet) override;
 
-	bool shoot(Vec2d& bullet_params) override;
+	bool shoot(std::pair<int, int>& bullet_params) override;
 
 	void loadFromSettings(const std::string& classname) override;
 private:

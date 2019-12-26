@@ -72,7 +72,7 @@ void Knight::collideWith(Bullet& bullet) {
 	bullet.setHP(0);
 }
 
-bool Knight::shoot(Vec2d& bullet_params) {
+bool Knight::shoot(std::pair<int, int>& bullet_params) {
 	bullet_params = this->getAim();
 	return is_shoot;
 }

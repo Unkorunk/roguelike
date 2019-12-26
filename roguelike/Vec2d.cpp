@@ -13,6 +13,10 @@ Vec2d Vec2d::operator+(const Vec2d& rhs) {
 	return Vec2d(this->x + rhs.x, this->y + rhs.y);
 }
 
+Vec2d Vec2d::operator+(const std::pair<int, int>& rhs) {
+	return Vec2d(this->x + rhs.first, this->y + rhs.second);
+}
+
 Vec2d& Vec2d::operator+=(const Vec2d& rhs) {
 	this->x += rhs.x;
 	this->y += rhs.y;
@@ -20,12 +24,22 @@ Vec2d& Vec2d::operator+=(const Vec2d& rhs) {
 }
 
 Vec2d Vec2d::operator-(const Vec2d& rhs) {
-	return Vec2d(this->x - rhs.x, this->y - rhs.y);
+	Vec2d tmp = *this;
+	tmp -= rhs;
+	return tmp;
 }
 
 Vec2d& Vec2d::operator-=(const Vec2d& rhs) {
-	this->x -= rhs.x;
-	this->y -= rhs.y;
+	if (this->x < rhs.x) {
+		this->x = 0;
+	} else {
+		this->x -= rhs.x;
+	}
+	if (this->y < rhs.y) {
+		this->y = 0;
+	} else {
+		this->y -= rhs.y;
+	}
 	return *this;
 }
 

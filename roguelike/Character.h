@@ -19,21 +19,21 @@ public:
 	uint32_t getHP() const;
 	uint32_t getMaxHP() const;
 	uint32_t getDamage() const;
-	Vec2d getAim() const;
+	std::pair<int, int> getAim() const;
 
 	bool isDied() const;
 
 	void setHP(uint32_t hp);
 	void setMaxHP(uint32_t max_hp);
 	void setDamage(uint32_t damage);
-	void setAim(Vec2d aim);
+	void setAim(int x, int y);
 
 	void takeDamage(uint32_t damage);
 
 	void loadFromSettings(const std::string& classname) override;
 
 	virtual bool move() = 0;
-	virtual bool shoot(Vec2d& bullet_params) = 0;
+	virtual bool shoot(std::pair<int, int>& bullet_params) = 0;
 private:
 	std::function<std::shared_ptr<GameObject>(char sym, const Vec2d & origin)> validator;
 
@@ -41,5 +41,5 @@ private:
 	uint32_t max_hp;
 	uint32_t damage;
 
-	Vec2d aim;
+	std::pair<int, int> aim;
 };

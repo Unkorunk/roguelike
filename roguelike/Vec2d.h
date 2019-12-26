@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <cstdint>
+#include <utility>
 
 class Vec2d {
 public:
@@ -12,6 +13,7 @@ public:
 	size_t x, y;
 
 	Vec2d operator +(const Vec2d& rhs);
+	Vec2d operator +(const std::pair<int, int>& rhs);
 	Vec2d& operator +=(const Vec2d& rhs);
 
 	Vec2d operator -(const Vec2d& rhs);

@@ -61,7 +61,7 @@ void Dragon::collideWith(Bullet& bullet) {
 	bullet.setHP(0);
 }
 
-bool Dragon::shoot(Vec2d& bullet_params) {
+bool Dragon::shoot(std::pair<int, int>& bullet_params) {
 	bullet_params = this->getAim();
 	return (rand() % 15 == 0);
 }

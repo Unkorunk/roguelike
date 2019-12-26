@@ -10,10 +10,10 @@ class Bullet : public Character {
 public:
 	Bullet();
 	Bullet(const Vec2d& origin);
-	Bullet(const Vec2d& origin, const Vec2d& aim);
+	Bullet(const Vec2d& origin, const std::pair<int, int>& aim);
 
 	bool move() override;
-	bool shoot(Vec2d& bullet_params) override {
+	bool shoot(std::pair<int, int>& bullet_params) override {
 		return false;
 	}
 
@@ -21,6 +21,6 @@ public:
 	void collideWith(Zombie& zombie) override;
 	void collideWith(Dragon& dragon) override;
 private:
-	Vec2d aim;
+	std::pair<int, int> aim;
 };
 

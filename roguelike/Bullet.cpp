@@ -1,20 +1,20 @@
 #include "Bullet.h"
 
 Bullet::Bullet() : Character('*') {
-	this->aim = Vec2d(1, 0);
+	this->aim = std::make_pair(1, 0);
 	this->setDamage(0);
 	this->setMaxHP(10000);
 	this->setHP(10000);
 }
 
 Bullet::Bullet(const Vec2d& origin) : Character('*', origin) {
-	this->aim = Vec2d(1, 0);
+	this->aim = std::make_pair(1, 0);
 	this->setDamage(0);
 	this->setMaxHP(10000);
 	this->setHP(10000);
 }
 
-Bullet::Bullet(const Vec2d& origin, const Vec2d& aim) : Character('*', origin) {
+Bullet::Bullet(const Vec2d& origin, const std::pair<int, int>& aim) : Character('*', origin) {
 	this->aim = aim;
 }
 

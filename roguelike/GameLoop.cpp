@@ -143,10 +143,10 @@ GameLoop::TickState GameLoop::tick() {
 				//move(character->getOrigin().y, character->getOrigin().x);
 				//addch(character->getSym());
 
-				character->setAim(character->getOrigin() - old_origin);
+				character->setAim((int)character->getOrigin().x - (int)old_origin.x, (int)character->getOrigin().y - (int)old_origin.y);
 			}
 
-			Vec2d bullet_params;
+			std::pair<int, int> bullet_params;
 			if (character->shoot(bullet_params)) {
 				new_bullets.push_back(std::make_shared<Bullet>(character->getOrigin() + bullet_params, bullet_params));
 				new_bullets.back()->setValidator(character->getValidator());
@@ -200,6 +200,20 @@ GameLoop::TickState GameLoop::tick() {
 			}
 		}
 	}
+
+	Vec2d left_bound = knight->getOrigin() - Vec2d(fog_distance, fog_distance);
+	Vec2d right_bound = knight->getOrigin() + Vec2d(fog_distance, fog_distance);
+	right_bound.x = std::min(right_bound.x, map.getWidth() - 1);
+	right_bound.y = std::min(right_bound.y, map.getHeight() - 1);
+	for (size_t y = left_bound.y; y <= right_bound.y; y++) {
+		for (size_t x = left_bound.x; x <= right_bound.x; x++) {
+			if (Vec2d::distance(Vec2d(x, y), knight->getOrigin()) == fog_distance) {
+				move(y, x);
+				addch('@');
+			}
+		}
+	}
+
 	// ~fog
 
 	// info

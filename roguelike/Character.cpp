@@ -6,7 +6,7 @@ Character::Character(char sym) : GameObject(sym) {
 	};
 	this->hp = this->max_hp = 100;
 	this->damage = 0;
-	this->aim = Vec2d(1, 0);
+	this->aim = std::make_pair(1, 0);
 
 	this->loadFromSettings(std::string() + sym);
 }
@@ -17,7 +17,7 @@ Character::Character(char sym, const Vec2d& origin) : GameObject(sym, origin) {
 	};
 	this->hp = this->max_hp = 100;
 	this->damage = 0;
-	this->aim = Vec2d(1, 0);
+	this->aim = std::make_pair(1, 0);
 
 	this->loadFromSettings(std::string() + sym);
 }
@@ -45,7 +45,7 @@ uint32_t Character::getDamage() const {
 	return this->damage;
 }
 
-Vec2d Character::getAim() const {
+std::pair<int, int> Character::getAim() const {
 	return aim;
 }
 
@@ -72,8 +72,8 @@ void Character::setDamage(uint32_t damage) {
 	this->damage = damage;
 }
 
-void Character::setAim(Vec2d aim) {
-	this->aim = aim;
+void Character::setAim(int x, int y) {
+	this->aim = std::make_pair(x, y);
 }
 
 void Character::takeDamage(uint32_t damage) {

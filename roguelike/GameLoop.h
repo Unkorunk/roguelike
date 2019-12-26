@@ -5,6 +5,7 @@
 #include <string>
 #include <queue>
 #include <curses.h>
+#include <algorithm>
 
 #include "Map.h"
 #include "GameObject.h"
