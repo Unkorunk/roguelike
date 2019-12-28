@@ -1,12 +1,12 @@
 #include "GameObject.h"
 
-GameObject::GameObject() : sym(), origin(), deleted(false) {
+GameObject::GameObject() : origin(), sym(), deleted(false) {
 }
 
-GameObject::GameObject(char sym) : sym(sym), origin(), deleted(false) {
+GameObject::GameObject(char sym) : origin(), sym(sym), deleted(false) {
 }
 
-GameObject::GameObject(char sym, const Vec2d& origin) : sym(sym), origin(origin), deleted(false) {
+GameObject::GameObject(char sym, const Vec2d& origin) : origin(origin), sym(sym), deleted(false) {
 }
 
 void GameObject::setOrigin(const Vec2d& origin) {

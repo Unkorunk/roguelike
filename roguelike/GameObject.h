@@ -17,6 +17,7 @@ public:
 	GameObject();
 	explicit GameObject(char sym);
 	explicit GameObject(char sym, const Vec2d& origin);
+	virtual ~GameObject() = default;
 
 	void setOrigin(const Vec2d& origin);
 	void setOrigin(size_t x, size_t y);
@@ -26,7 +27,7 @@ public:
 
 	void remove() {
 		if (!deleted) {
-			::move(this->getOrigin().y, this->getOrigin().x);
+			::move(static_cast<int>(this->getOrigin().y), static_cast<int>(this->getOrigin().x));
 			::addch(' ');
 			deleted = true;
 		}

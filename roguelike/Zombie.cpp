@@ -20,7 +20,7 @@ Zombie::Zombie(const Vec2d& origin) : Character('Z', origin) {
 
 bool Zombie::move() {
 	Vec2d next_origin = this->getOrigin();
-	switch (rand() % 100) {
+	switch (Utility::random() % 100) {
 	case 0:
 		next_origin.x--;
 		break;
@@ -65,7 +65,7 @@ void Zombie::collideWith(Bullet& bullet) {
 
 bool Zombie::shoot(std::pair<int, int>& bullet_params) {
 	bullet_params = this->getAim();
-	return (rand() % 15 == 0);
+	return (Utility::random() % 15 == 0);
 }
 
 void Zombie::loadFromSettings(const std::string& classname) {

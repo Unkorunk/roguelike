@@ -9,6 +9,7 @@ Map::Map() : width(2), height(2) {
 	}
 	data[0][0] = 'K';
 	data[1][1] = 'P';
+	gen_x = gen_y = 0;
 }
 
 Map::Map(const std::string& filename) {
@@ -20,9 +21,12 @@ Map::Map(const std::string& filename) {
 		std::getline(ifs, data[i]);
 	}
 	ifs.close();
+	gen_x = gen_y = 0;
 }
 
 Map::Map(size_t width, size_t height) : width(width), height(height) {
+	gen_x = gen_y = 0;
+
 	if (width < 6) {
 		width = 6;
 	}
@@ -37,16 +41,16 @@ Map::Map(size_t width, size_t height) : width(width), height(height) {
 		}
 	}
 	
-	std::unique_ptr<Leaf> tree = split({1, 1, width - 2, height - 2}, 3);
+	std::unique_ptr<Leaf> tree = split({1, 1, static_cast<int>(width) - 2, static_cast<int>(height) - 2}, 3);
 	std::vector<Rect> rects;
 	tree->getRects(rects);
 	std::vector<Rect> rooms;
 	for (auto &rect : rects) {
-		Rect tmp(rect.x + 1 + (rect.width / 3 > 1 ? rand() % (rect.width / 3 - 1) : 1), rect.y + 1 + (rect.height / 3 > 1 ? rand() % (rect.height / 3 - 1) : 1), 0, 0);
+		Rect tmp(rect.x + 1 + (rect.width / 3 > 1 ? Utility::random() % (rect.width / 3 - 1) : 1), rect.y + 1 + (rect.height / 3 > 1 ? Utility::random() % (rect.height / 3 - 1) : 1), 0, 0);
 		tmp.width = rect.width - (tmp.x - rect.x);
 		tmp.height = rect.height - (tmp.y - rect.y);
-		tmp.width -= (tmp.width / 3 != 0 ? rand() % (tmp.width / 3) : 0);
-		tmp.height -= (tmp.height / 3 != 0 ? rand() % (tmp.height / 3) : 0);
+		tmp.width -= (tmp.width / 3 != 0 ? Utility::random() % (tmp.width / 3) : 0);
+		tmp.height -= (tmp.height / 3 != 0 ? Utility::random() % (tmp.height / 3) : 0);
 		rooms.push_back(tmp);
 	}
 
@@ -60,28 +64,28 @@ Map::Map(size_t width, size_t height) : width(width), height(height) {
 
 	Leaf::printPaths(tree, data);
 
-	size_t knight_room = rand() % rooms.size();
-	size_t princess_room = rand() % rooms.size();
+	size_t knight_room = Utility::random() % rooms.size();
+	size_t princess_room = Utility::random() % rooms.size();
 	while (princess_room == knight_room) {
-		princess_room = rand() % rooms.size();
+		princess_room = Utility::random() % rooms.size();
 	}
 
 	data[rooms[knight_room].y + rooms[knight_room].height / 2][rooms[knight_room].x + rooms[knight_room].width / 2] = 'K';
 	data[rooms[princess_room].y + rooms[princess_room].height / 2][rooms[princess_room].x + rooms[princess_room].width / 2] = 'P';
 
-	size_t cnt_mobs = 1 + rand() % 20;
+	size_t cnt_mobs = 1 + Utility::random() % 20;
 	for (size_t i = 0; i < cnt_mobs; i++) {
-		size_t mob_room = rand() % rooms.size();
-		size_t x = rooms[mob_room].x + rand() % rooms[mob_room].width;
-		size_t y = rooms[mob_room].y + rand() % rooms[mob_room].height;
+		size_t mob_room = Utility::random() % rooms.size();
+		size_t x = rooms[mob_room].x + Utility::random() % rooms[mob_room].width;
+		size_t y = rooms[mob_room].y + Utility::random() % rooms[mob_room].height;
 
 		while (data[y][x] != ' ') {
-			mob_room = rand() % rooms.size();
-			x = rooms[mob_room].x + rand() % rooms[mob_room].width;
-			y = rooms[mob_room].y + rand() % rooms[mob_room].height;
+			mob_room = Utility::random() % rooms.size();
+			x = rooms[mob_room].x + Utility::random() % rooms[mob_room].width;
+			y = rooms[mob_room].y + Utility::random() % rooms[mob_room].height;
 		}
 
-		switch (rand() % 3) {
+		switch (Utility::random() % 3) {
 		case 0:
 			data[y][x] = 'Z';
 			break;
@@ -128,24 +132,21 @@ void Map::reg(char sym, const std::function<std::shared_ptr<GameObject>(size_t x
 }
 
 Map::GeneratorStates Map::gen(std::shared_ptr<GameObject>& output_go) {
-	static size_t y = 0;
-	static size_t x = 0;
-
-	if (y < height && x < width) {
-		if (defined_types.count(data[y][x]) == 0) {
-			x++;
-			if (x == width) {
-				x = 0;
-				y++;
+	if (gen_y < height && gen_x < width) {
+		if (defined_types.count(data[gen_y][gen_x]) == 0) {
+			gen_x++;
+			if (gen_x == width) {
+				gen_x = 0;
+				gen_y++;
 			}
 			return GeneratorStates::UNDEFINED_OBJECT;
 		}
 
-		output_go = defined_types[data[y][x]](x, y);
-		x++;
-		if (x == width) {
-			x = 0;
-			y++;
+		output_go = defined_types[data[gen_y][gen_x]](gen_x, gen_y);
+		gen_x++;
+		if (gen_x == width) {
+			gen_x = 0;
+			gen_y++;
 		}
 
 		return GeneratorStates::GOOD_JOB;

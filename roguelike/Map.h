@@ -9,6 +9,7 @@
 #include <memory>
 
 #include "GameObject.h"
+#include "Utility.h"
 
 class Map {
 public:
@@ -33,10 +34,12 @@ public:
 	void reg(char sym, const std::function<std::shared_ptr<GameObject>(size_t x, size_t y)>& creator);
 	GeneratorStates gen(std::shared_ptr<GameObject>& output_go);
 private:
+	size_t gen_x, gen_y;
+
 	struct Rect {
-		size_t x, y, width, height;
+		int x, y, width, height;
 		Rect() : x(), y(), width(), height() {}
-		Rect(size_t x, size_t y, size_t width, size_t height) : x(x), y(y), width(width), height(height) {}
+		Rect(int x, int y, int width, int height) : x(x), y(y), width(width), height(height) {}
 		Rect(const Rect& rect) : x(rect.x), y(rect.y), width(rect.width), height(rect.height) {}
 	};
 	struct Leaf {
@@ -93,11 +96,11 @@ private:
 			Rect rect2;
 
 			do {
-				if (rand() % 2 == 0) {
-					rect1 = { rect.x, rect.y, 1 + rand() % rect.width, rect.height };
+				if (Utility::random() % 2 == 0) {
+					rect1 = { rect.x, rect.y, 1 + Utility::random() % rect.width, rect.height };
 					rect2 = { rect.x + rect1.width, rect.y, rect.width - rect1.width, rect.height };
 				} else {
-					rect1 = { rect.x, rect.y, rect.width, 1 + rand() % rect.height };
+					rect1 = { rect.x, rect.y, rect.width, 1 + Utility::random() % rect.height };
 					rect2 = { rect.x, rect.y + rect1.height, rect.width, rect.height - rect1.height };
 				}
 			} while (rect1.height < 3 || rect2.height < 3 || rect1.width < 3 || rect2.width < 3 ||

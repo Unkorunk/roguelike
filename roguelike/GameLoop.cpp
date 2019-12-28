@@ -59,26 +59,29 @@ void GameLoop::init() {
 	}
 
 	for (auto go : game_objs) {
-		move(go->getOrigin().y, go->getOrigin().x);
+		move(static_cast<int>(go->getOrigin().y), static_cast<int>(go->getOrigin().x));
 		addch(go->getSym());
 	}
 }
 
 GameLoop::TickState GameLoop::tick() {
 	// Remove object is died
-	for (auto iter = game_objs.begin(); iter != game_objs.end(); ) {
-		auto character = std::dynamic_pointer_cast<Character>(*iter);
+	for (size_t i = 0; i < game_objs.size(); ) {
+		auto character = std::dynamic_pointer_cast<Character>(game_objs[i]);
 		if (character && character->isDied()) {
-			iter = game_objs.erase(iter);
+			game_objs[i] = game_objs.back();
+			game_objs.pop_back();
 		} else {
-			iter++;
+			i++;
 		}
 	}
 	// ~Remove object is died
 
+#ifndef linux
 	if (is_termresized()) {
 		resize_term(0, 0);
 	}
+#endif
 
 	//clear();
 	//for (auto go : game_objs) {
@@ -108,7 +111,7 @@ GameLoop::TickState GameLoop::tick() {
 	for (auto go : game_objs) {
 		auto bullet = std::dynamic_pointer_cast<Bullet>(go);
 		if (bullet && !bullet->isDied()) {
-			Vec2d old_origin = bullet->getOrigin();
+			//Vec2d old_origin = bullet->getOrigin();
 			if (bullet->move()) {
 		/*		move(old_origin.y, old_origin.x);
 				addch(' ');
@@ -195,7 +198,7 @@ GameLoop::TickState GameLoop::tick() {
 			}
 
 			if (!go->getRemoved()) {
-				move(go->getOrigin().y, go->getOrigin().x);
+				move(static_cast<int>(go->getOrigin().y), static_cast<int>(go->getOrigin().x));
 				addch(go->getSym());
 			}
 		}
@@ -208,7 +211,7 @@ GameLoop::TickState GameLoop::tick() {
 	for (size_t y = left_bound.y; y <= right_bound.y; y++) {
 		for (size_t x = left_bound.x; x <= right_bound.x; x++) {
 			if (Vec2d::distance(Vec2d(x, y), knight->getOrigin()) == fog_distance) {
-				move(y, x);
+				move(static_cast<int>(y), static_cast<int>(x));
 				addch('@');
 			}
 		}
@@ -218,17 +221,17 @@ GameLoop::TickState GameLoop::tick() {
 
 	// info
 #if _DEBUG
-	move(1, map.getWidth() + 1);
+	move(1, static_cast<int>(map.getWidth()) + 1);
 	printw("Health: %d / %d", knight->getHP(), knight->getMaxHP());
 
-	move(2, map.getWidth() + 1);
+	move(2, static_cast<int>(map.getWidth()) + 1);
 	printw("GameObjs: %3d", game_objs.size());
 
-	size_t id = 0;
+	int id = 0;
 	for (auto go : game_objs) {
 		auto character = std::dynamic_pointer_cast<Character>(go);
 		if (character && !character->isDied() && !std::dynamic_pointer_cast<Knight>(go) && !std::dynamic_pointer_cast<Bullet>(go)) {
-			move(3 + id++, map.getWidth() + 1);
+			move(3 + id++, static_cast<int>(map.getWidth()) + 1);
 			printw("%s #%d: Health: %d / %d", typeid(*character).name(), id, character->getHP(), character->getMaxHP());
 		}
 

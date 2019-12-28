@@ -16,41 +16,47 @@ int main(int argc, char* argv[]) {
 #else
     initscr();
 #endif
-    srand(time(nullptr));
-
     noecho();
     cbreak();
     nonl();
     keypad(stdscr, TRUE);
-
+    
     curs_set(0);
 
-    GameLoop gameLoop(64, 20);
-    //GameLoop gameLoop("test_map.txt");
-    gameLoop.init();
+    while (true) {
+        GameLoop gameLoop(64, 20);
+        //GameLoop gameLoop("test_map.txt");
+        gameLoop.init();
 
-    napms(12);
-    refresh();
-    nodelay(stdscr, TRUE);
-
-    GameLoop::TickState state = gameLoop.tick();
-    while (state == GameLoop::TickState::eContinue) {
-        napms(100);
+        napms(12);
         refresh();
+        nodelay(stdscr, TRUE);
 
-        state = gameLoop.tick();
-    }
 
-    clear();
+        GameLoop::TickState state = gameLoop.tick();
+        while (state == GameLoop::TickState::eContinue) {
+            napms(100);
+            refresh();
 
-    if (state == GameLoop::TickState::eWin) {
-        printw("You win. Press Q to quit.");
-    } else if (state == GameLoop::TickState::eLose) {
-        printw("You lose. Press Q to quit.");
-    }
+            state = gameLoop.tick();
+        }
 
-    while (getch() != 'q') {
-        napms(70);
+        clear();
+
+        if (state == GameLoop::TickState::eWin) {
+            printw("You win. Press Q to quit or R to restart.");
+        } else if (state == GameLoop::TickState::eLose) {
+            printw("You lose. Press Q to quit or R to restart.");
+        }
+
+        int ch = getch();
+        while (ch != 'q' && ch != 'r') {
+            napms(70);
+            ch = getch();
+        }
+        if (ch == 'q') {
+            break;
+        }
     }
 
     cleanup();

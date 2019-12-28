@@ -5,6 +5,8 @@
 #include "Knight.h"
 #include "Bullet.h"
 
+#include "Utility.h"
+
 class Dragon : public Character {
 public:
 	Dragon();

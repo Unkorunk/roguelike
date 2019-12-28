@@ -171,6 +171,7 @@
     <ClInclude Include="Map.h" />
     <ClInclude Include="Princess.h" />
     <ClInclude Include="Settings.h" />
+    <ClInclude Include="Utility.h" />
     <ClInclude Include="Vec2d.h" />
     <ClInclude Include="Wall.h" />
     <ClInclude Include="Zombie.h" />

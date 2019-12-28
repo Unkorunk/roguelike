@@ -4,6 +4,7 @@
 
 #include "Knight.h"
 #include "Bullet.h"
+#include "Utility.h"
 
 class Zombie : public Character {
 public:

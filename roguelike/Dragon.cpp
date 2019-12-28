@@ -18,7 +18,7 @@ Dragon::Dragon(const Vec2d& origin) : Character('D', origin) {
 
 bool Dragon::move() {
 	Vec2d next_origin = this->getOrigin();
-	switch (rand() % 10) {
+	switch (Utility::random() % 10) {
 	case 0:
 		next_origin.x--;
 		break;
@@ -63,7 +63,7 @@ void Dragon::collideWith(Bullet& bullet) {
 
 bool Dragon::shoot(std::pair<int, int>& bullet_params) {
 	bullet_params = this->getAim();
-	return (rand() % 15 == 0);
+	return (Utility::random() % 15 == 0);
 }
 
 void Dragon::loadFromSettings(const std::string& classname) {
