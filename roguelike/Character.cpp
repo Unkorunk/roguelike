@@ -85,7 +85,7 @@ void Character::takeDamage(uint32_t damage) {
 }
 
 void Character::loadFromSettings(const std::string& classname) {
-	this->hp = Settings::getInstance().get_params_or_default<uint32_t>(classname, "hp", this->hp);
-	this->max_hp = Settings::getInstance().get_params_or_default<uint32_t>(classname, "max_hp", this->max_hp);
-	this->damage = Settings::getInstance().get_params_or_default<uint32_t>(classname, "damage", this->damage);
+	this->hp = Settings::get_instance().get_params_or_default<uint32_t>(classname, "hp", this->hp);
+	this->max_hp = Settings::get_instance().get_params_or_default<uint32_t>(classname, "max_hp", this->max_hp);
+	this->damage = Settings::get_instance().get_params_or_default<uint32_t>(classname, "damage", this->damage);
 }

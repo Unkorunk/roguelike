@@ -15,6 +15,7 @@
 #include "Princess.h"
 #include "Wall.h"
 #include "AidKit.h"
+#include "Settings.h"
 
 class GameLoop {
 public:

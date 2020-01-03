@@ -189,7 +189,7 @@ GameLoop::TickState GameLoop::tick() {
 	
 	// fog
 	clear();
-	const size_t fog_distance = 6;
+	const size_t fog_distance = Settings::get_instance().get_params_or_default("GameLoop", "fog_distance", 8);
 	for (auto go : game_objs) {
 		if (Vec2d::distance(go->getOrigin(), knight->getOrigin()) < fog_distance) {
 			auto character = std::dynamic_pointer_cast<Character>(go);

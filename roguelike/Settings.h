@@ -5,7 +5,7 @@
 
 class Settings {
 public:
-	static Settings& getInstance() {
+	static Settings& get_instance() {
 		static Settings settigns;
 		return settigns;
 	}

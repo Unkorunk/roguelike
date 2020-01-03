@@ -15,5 +15,5 @@ void AidKit::collideWith(Knight& knight) {
 }
 
 void AidKit::loadFromSettings(const std::string& classname) {
-	this->how_many = Settings::getInstance().get_params_or_default(classname, "how_many", this->how_many);
+	this->how_many = Settings::get_instance().get_params_or_default(classname, "how_many", this->how_many);
 }

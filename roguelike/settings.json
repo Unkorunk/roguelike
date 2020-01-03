@@ -20,5 +20,9 @@
     "damage": 10,
     "max_hp": 1000,
     "hp": 100
+  },
+  {
+    "name": "GameLoop",
+    "fog_distance": 20
   }
 ]
